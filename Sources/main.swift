@@ -1,5 +1,6 @@
 import Kitura
 import HeliumLogger
+import SwiftyJSON
 import Foundation
 
 HeliumLogger.use()
@@ -16,6 +17,14 @@ let dateFormatter: DateFormatter = {
 router.get("/", handler: {
     request, response, next in
     response.send("It is: \(dateFormatter.string(from: Date()))")
+    next()
+})
+
+router.get("/json", handler: {
+    request, response, next in
+    let dictionary = ["It is" : dateFormatter.string(from: Date())]
+    let json = JSON(dictionary)
+    response.send(json: json)
     next()
 })
 
