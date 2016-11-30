@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7612A01B1DEF926900BA95C6 /* baseballCardThumbnail.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7612A0171DEF15F300BA95C6 /* baseballCardThumbnail.jpg */; };
 		OBJ_191 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* Logger.swift */; };
 		OBJ_198 /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* Socket.swift */; };
 		OBJ_199 /* SocketProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* SocketProtocols.swift */; };
@@ -391,7 +392,21 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		7612A01A1DEF925500BA95C6 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				7612A01B1DEF926900BA95C6 /* baseballCardThumbnail.jpg in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		7612A0171DEF15F300BA95C6 /* baseballCardThumbnail.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = baseballCardThumbnail.jpg; sourceTree = "<group>"; };
 		OBJ_100 /* TextBodyParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBodyParser.swift; sourceTree = "<group>"; };
 		OBJ_101 /* URLEncodedBodyParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLEncodedBodyParser.swift; sourceTree = "<group>"; };
 		OBJ_103 /* ContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
@@ -469,8 +484,8 @@
 		OBJ_178 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_179 /* KituraTemplateEngine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = KituraTemplateEngine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_18 /* utils.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = utils.c; sourceTree = "<group>"; };
-		OBJ_180 /* Kitura.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Kitura.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		OBJ_181 /* HeliumLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HeliumLogger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_180 /* Kitura.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Kitura.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_181 /* HeliumLogger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HeliumLogger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_182 /* PluginLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PluginLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_183 /* protoc-gen-swift */ = {isa = PBXFileReference; lastKnownFileType = text; path = "protoc-gen-swift"; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_184 /* SwiftProtobuf.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftProtobuf.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -675,6 +690,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7612A01C1DEF95C600BA95C6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7612A0171DEF15F300BA95C6 /* baseballCardThumbnail.jpg */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		OBJ_10 /* Socket */ = {
 			isa = PBXGroup;
 			children = (
@@ -817,6 +840,7 @@
 			children = (
 				OBJ_169 /* baseballCard.pb.swift */,
 				OBJ_170 /* main.swift */,
+				7612A01C1DEF95C600BA95C6 /* Resources */,
 			);
 			name = ProtoBuf;
 			path = Sources;
@@ -1262,6 +1286,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_435 /* Build configuration list for PBXNativeTarget "ProtoBuf" */;
 			buildPhases = (
+				7612A01A1DEF925500BA95C6 /* CopyFiles */,
 				OBJ_438 /* Sources */,
 				OBJ_441 /* Frameworks */,
 			);
