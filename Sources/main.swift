@@ -2,6 +2,7 @@ import Kitura
 import HeliumLogger
 import SwiftyJSON
 import Foundation
+import Cocoa //Temporary!
 
 HeliumLogger.use()
 
@@ -71,6 +72,48 @@ router.get("/card", handler: {
         response.send(status: .badRequest).send("No Accept in headers.")
         return
     }
+})
+
+router.post("/card", handler: {
+    request, response, next in
+    defer {
+        next()
+    }
+    
+    guard let contentType = request.headers["Content-Type"] else {
+        response.send(status: .badRequest).send("No Content-Type in headers.")
+        return
+    }
+    
+    let card: BaseballCard
+    
+    switch contentType {
+    case "application/octet-stream":
+        
+        var data = Data()
+        var length = try request.read(into: &data)
+        while length != 0 {
+            length = try request.read(into: &data)
+        }
+        card = try BaseballCard.init(protobuf: data)
+        break
+    case "application/json":
+        guard let body = request.body,
+            case let .json(data) = body,
+            let jsonString = data.rawString() else {
+                response.status(.badRequest)
+                 return
+        }
+        card = try BaseballCard.init(json: jsonString)
+        break
+    default:
+        response.status(.badRequest)
+        return
+    }
+    
+    let image = NSImage(data: card.thumbnailImage)
+    
+    response.status(.OK).send("Added: \(card.playerName)")
 })
 
 Kitura.addHTTPServer(onPort: 8090, with: router)
