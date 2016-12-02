@@ -585,3 +585,47 @@ public struct BaseballCard: ProtobufGeneratedMessage {
     return true
   }
 }
+
+public struct BaseballCards: ProtobufGeneratedMessage {
+  public var swiftClassName: String {return "BaseballCards"}
+  public var protoMessageName: String {return "BaseballCards"}
+  public var protoPackageName: String {return ""}
+  public var jsonFieldNames: [String: Int] {return [
+    "all": 1,
+  ]}
+  public var protoFieldNames: [String: Int] {return [
+    "all": 1,
+  ]}
+
+  public var all: [BaseballCard] = []
+
+  public init() {}
+
+  public init(all: [BaseballCard] = [])
+  {
+    if !all.isEmpty {
+      self.all = all
+    }
+  }
+
+  public mutating func _protoc_generated_decodeField(setter: inout ProtobufFieldDecoder, protoFieldNumber: Int) throws -> Bool {
+    let handled: Bool
+    switch protoFieldNumber {
+    case 1: handled = try setter.decodeRepeatedMessageField(fieldType: BaseballCard.self, value: &all)
+    default:
+      handled = false
+    }
+    return handled
+  }
+
+  public func _protoc_generated_traverse(visitor: inout ProtobufVisitor) throws {
+    if !all.isEmpty {
+      try visitor.visitRepeatedMessageField(value: all, protoFieldNumber: 1, protoFieldName: "all", jsonFieldName: "all", swiftFieldName: "all")
+    }
+  }
+
+  public func _protoc_generated_isEqualTo(other: BaseballCards) -> Bool {
+    if all != other.all {return false}
+    return true
+  }
+}

@@ -2,11 +2,11 @@ import Kitura
 import HeliumLogger
 import SwiftyJSON
 import Foundation
-import Cocoa //Temporary!
 
 HeliumLogger.use()
 
 let router = Router()
+var allCards: [BaseballCard] = [BaseballCard]()
 
 let dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
@@ -34,51 +34,63 @@ router.get("/json", handler: {
 router.get("/card", handler: {
     request, response, next in
     
-    defer {
-        next()
-    }
+    defer { next() }
     
     guard let accept = request.headers["Accept"] else {
         response.send(status: .badRequest).send("No Accept in headers.")
         return
     }
     
-    guard let path = Bundle.main.path(forResource: "baseballCardThumbnail", ofType: "jpg", inDirectory: nil) else { fatalError() }
-    let thumbnailDataUrl = URL(fileURLWithPath:path)
-    let card: BaseballCard
-    do {
-        let imageData = try Data(contentsOf: thumbnailDataUrl)
-        card = BaseballCard(playerName: "Jay Johnstone",
-                                teams: [.chicagoCubs],
-                                positions: [.centerField],
-                                year: 1984,
-                                cardNumber: "495",
-                                cardCompany: "Fleer",
-                                fullImageURL: nil,
-                                thumbnailImage: imageData)
+    guard let card = allCards.last else {
+        response.send("No cards found")
+        return
     }
-    catch { fatalError() }
     
     switch accept {
     case "application/json":
-        let jsonString = try! card.serializeJSON()
+        let jsonString = try card.serializeJSON()
         response.send(jsonString)
         break
     case "application/octet-stream":
-        let data = try! card.serializeProtobuf()
+        let data = try card.serializeProtobuf()
         response.send(data: data)
         break
     default:
+        response.send(status: .badRequest).send("Accept type is incorrect.")
+        return
+    }
+})
+
+router.get("/cards", handler: {
+    request, response, next in
+    
+    defer { next() }
+    
+    guard let accept = request.headers["Accept"] else {
         response.send(status: .badRequest).send("No Accept in headers.")
+        return
+    }
+    
+    let cards = BaseballCards(all: allCards)
+    
+    switch accept {
+    case "application/json":
+        let jsonString = try cards.serializeJSON()
+        response.send(jsonString)
+        break
+    case "application/octet-stream":
+        let data = try cards.serializeProtobuf()
+        response.send(data: data)
+        break
+    default:
+        response.send(status: .badRequest).send("Accept type is incorrect.")
         return
     }
 })
 
 router.post("/card", handler: {
     request, response, next in
-    defer {
-        next()
-    }
+    defer { next() }
     
     guard let contentType = request.headers["Content-Type"] else {
         response.send(status: .badRequest).send("No Content-Type in headers.")
@@ -107,11 +119,11 @@ router.post("/card", handler: {
         card = try BaseballCard.init(json: jsonString)
         break
     default:
-        response.status(.badRequest)
+        response.status(.badRequest).send("Content-Type is incorrect.")
         return
     }
     
-    let image = NSImage(data: card.thumbnailImage)
+    allCards.append(card)
     
     response.status(.OK).send("Added: \(card.playerName)")
 })
