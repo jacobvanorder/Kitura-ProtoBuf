@@ -154,15 +154,7 @@ class ProtoBufTests: XCTestCase {
     class func postCard(withPlayer player: String,
                         completionHandler: @escaping (Data?, URLResponse?, Swift.Error?) -> Void) {
         
-        let card = BaseballCard(playerName: player,
-                                teams: [.chicagoCubs],
-                                positions: [.designatedHitter],
-                                year: 1994,
-                                cardNumber: "100",
-                                cardCompany: "Topps",
-                                fullImageURL: "www.google.com",
-                                thumbnailImage: nil)
-        
+        let card = try! BaseballCard(json: "{}")
         
         guard let url = URL(string: "http://localhost:8090/card/") else {
             XCTAssertTrue(true)

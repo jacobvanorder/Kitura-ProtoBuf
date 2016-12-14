@@ -2,11 +2,16 @@ import Kitura
 import HeliumLogger
 import SwiftyJSON
 import Foundation
+import KituraSession
+
+import Kitura_CredentialsTwitter
+import Credentials
 
 class Service {
     
     let router = Router()
     var allCards: [BaseballCard] = [BaseballCard]()
+    let credentials = Credentials()
     
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -19,6 +24,20 @@ class Service {
         HeliumLogger.use()
         
         router.all(middleware: BodyParser())
+        
+        // Twitter authentication
+        router.all(middleware: Session(secret: "NowBatting"))
+        
+        let twitter = CredentialsTwitter(consumerKey: twitterConsumerKey,
+                                         consumerSecret: twitterConsumerSecret)
+        
+        credentials.register(plugin: twitter)
+        credentials.options["failureRedirect"] = "/login/twitter"
+        router.get("/login/twitter",
+                   handler: credentials.authenticate(credentialsType: twitter.name))
+        
+        router.get("/login/twitter/callback",
+                   handler: credentials.authenticate(credentialsType: twitter.name))
         
         router.get("/", handler: {
             request, response, next in
@@ -64,6 +83,7 @@ class Service {
             }
         })
         
+        router.get("/cards", middleware: credentials)
         router.get("/cards", handler: {
             request, response, next in
             
@@ -74,7 +94,8 @@ class Service {
                 return
             }
             
-            let cards = BaseballCards(all: self.allCards)
+            var cards = BaseballCards()
+            cards.all = self.allCards
             
             switch accept {
             case "application/json":
@@ -95,29 +116,21 @@ class Service {
             request, response, next in
             defer { next() }
             
-            guard let contentType = request.headers["Content-Type"] else {
-                response.send(status: .badRequest).send("No Content-Type in headers.")
+            guard let body = request.body else {
+                response.send(status: .badRequest).send("No body in request.")
                 return
             }
             
             let card: BaseballCard
             
-            switch contentType {
-            case "application/octet-stream":
-                
-                var data = Data()
-                var length = try request.read(into: &data)
-                while length != 0 {
-                    length = try request.read(into: &data)
-                }
+            switch body {
+            case .raw(let data):
                 card = try BaseballCard.init(protobuf: data)
                 break
-            case "application/json":
-                guard let body = request.body,
-                    case let .json(data) = body,
-                    let jsonString = data.rawString() else {
-                        response.status(.badRequest)
-                        return
+            case .json(let data):
+                guard let jsonString = data.rawString() else {
+                    response.status(.badRequest)
+                    return
                 }
                 card = try BaseballCard.init(json: jsonString)
                 break

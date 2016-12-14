@@ -10,33 +10,24 @@ import Foundation
 import SwiftProtobuf
 
 
-public struct BaseballCard: ProtobufGeneratedMessage {
+struct BaseballCard: SwiftProtobuf.Message, SwiftProtobuf.Proto3Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf.ProtoNameProviding {
   public var swiftClassName: String {return "BaseballCard"}
   public var protoMessageName: String {return "BaseballCard"}
   public var protoPackageName: String {return ""}
-  public var jsonFieldNames: [String: Int] {return [
-    "playerName": 1,
-    "teams": 2,
-    "positions": 3,
-    "year": 4,
-    "cardNumber": 5,
-    "cardCompany": 6,
-    "fullImageURL": 7,
-    "thumbnailImage": 8,
-  ]}
-  public var protoFieldNames: [String: Int] {return [
-    "playerName": 1,
-    "teams": 2,
-    "positions": 3,
-    "year": 4,
-    "cardNumber": 5,
-    "cardCompany": 6,
-    "fullImageURL": 7,
-    "thumbnailImage": 8,
-  ]}
+  public static let _protobuf_fieldNames: FieldNameMap = [
+    1: .same(proto: "playerName", swift: "playerName"),
+    2: .same(proto: "teams", swift: "teams"),
+    3: .same(proto: "positions", swift: "positions"),
+    4: .same(proto: "year", swift: "year"),
+    5: .same(proto: "cardNumber", swift: "cardNumber"),
+    6: .same(proto: "cardCompany", swift: "cardCompany"),
+    7: .same(proto: "fullImageURL", swift: "fullImageURL"),
+    8: .same(proto: "thumbnailImage", swift: "thumbnailImage"),
+  ]
 
-  public enum Team: ProtobufEnum {
-    public typealias RawValue = Int
+
+  enum Team: SwiftProtobuf.Enum {
+    typealias RawValue = Int
     case baltimoreOrioles // = 0
     case bostonRedSox // = 1
     case newYorkYankees // = 2
@@ -69,11 +60,11 @@ public struct BaseballCard: ProtobufGeneratedMessage {
     case sanFranciscoGiants // = 29
     case UNRECOGNIZED(Int)
 
-    public init() {
+    init() {
       self = .baltimoreOrioles
     }
 
-    public init?(rawValue: Int) {
+    init?(rawValue: Int) {
       switch rawValue {
       case 0: self = .baltimoreOrioles
       case 1: self = .bostonRedSox
@@ -109,7 +100,7 @@ public struct BaseballCard: ProtobufGeneratedMessage {
       }
     }
 
-    public init?(name: String) {
+    init?(name: String) {
       switch name {
       case "baltimoreOrioles": self = .baltimoreOrioles
       case "bostonRedSox": self = .bostonRedSox
@@ -145,7 +136,7 @@ public struct BaseballCard: ProtobufGeneratedMessage {
       }
     }
 
-    public init?(jsonName: String) {
+    init?(jsonName: String) {
       switch jsonName {
       case "BALTIMORE_ORIOLES": self = .baltimoreOrioles
       case "BOSTON_RED_SOX": self = .bostonRedSox
@@ -181,7 +172,7 @@ public struct BaseballCard: ProtobufGeneratedMessage {
       }
     }
 
-    public init?(protoName: String) {
+    init?(protoName: String) {
       switch protoName {
       case "BALTIMORE_ORIOLES": self = .baltimoreOrioles
       case "BOSTON_RED_SOX": self = .bostonRedSox
@@ -217,7 +208,7 @@ public struct BaseballCard: ProtobufGeneratedMessage {
       }
     }
 
-    public var rawValue: Int {
+    var rawValue: Int {
       get {
         switch self {
         case .baltimoreOrioles: return 0
@@ -255,7 +246,7 @@ public struct BaseballCard: ProtobufGeneratedMessage {
       }
     }
 
-    public var json: String {
+    var json: String {
       get {
         switch self {
         case .baltimoreOrioles: return "\"BALTIMORE_ORIOLES\""
@@ -293,9 +284,9 @@ public struct BaseballCard: ProtobufGeneratedMessage {
       }
     }
 
-    public var hashValue: Int { return rawValue }
+    var hashValue: Int { return rawValue }
 
-    public var debugDescription: String {
+    var debugDescription: String {
       get {
         switch self {
         case .baltimoreOrioles: return ".baltimoreOrioles"
@@ -335,8 +326,8 @@ public struct BaseballCard: ProtobufGeneratedMessage {
 
   }
 
-  public enum Position: ProtobufEnum {
-    public typealias RawValue = Int
+  enum Position: SwiftProtobuf.Enum {
+    typealias RawValue = Int
     case designatedHitter // = 0
     case pitcher // = 1
     case catcher // = 2
@@ -349,11 +340,11 @@ public struct BaseballCard: ProtobufGeneratedMessage {
     case rightField // = 9
     case UNRECOGNIZED(Int)
 
-    public init() {
+    init() {
       self = .designatedHitter
     }
 
-    public init?(rawValue: Int) {
+    init?(rawValue: Int) {
       switch rawValue {
       case 0: self = .designatedHitter
       case 1: self = .pitcher
@@ -369,7 +360,7 @@ public struct BaseballCard: ProtobufGeneratedMessage {
       }
     }
 
-    public init?(name: String) {
+    init?(name: String) {
       switch name {
       case "designatedHitter": self = .designatedHitter
       case "pitcher": self = .pitcher
@@ -385,7 +376,7 @@ public struct BaseballCard: ProtobufGeneratedMessage {
       }
     }
 
-    public init?(jsonName: String) {
+    init?(jsonName: String) {
       switch jsonName {
       case "DESIGNATED_HITTER": self = .designatedHitter
       case "PITCHER": self = .pitcher
@@ -401,7 +392,7 @@ public struct BaseballCard: ProtobufGeneratedMessage {
       }
     }
 
-    public init?(protoName: String) {
+    init?(protoName: String) {
       switch protoName {
       case "DESIGNATED_HITTER": self = .designatedHitter
       case "PITCHER": self = .pitcher
@@ -417,7 +408,7 @@ public struct BaseballCard: ProtobufGeneratedMessage {
       }
     }
 
-    public var rawValue: Int {
+    var rawValue: Int {
       get {
         switch self {
         case .designatedHitter: return 0
@@ -435,7 +426,7 @@ public struct BaseballCard: ProtobufGeneratedMessage {
       }
     }
 
-    public var json: String {
+    var json: String {
       get {
         switch self {
         case .designatedHitter: return "\"DESIGNATED_HITTER\""
@@ -453,9 +444,9 @@ public struct BaseballCard: ProtobufGeneratedMessage {
       }
     }
 
-    public var hashValue: Int { return rawValue }
+    var hashValue: Int { return rawValue }
 
-    public var debugDescription: String {
+    var debugDescription: String {
       get {
         switch self {
         case .designatedHitter: return ".designatedHitter"
@@ -475,101 +466,63 @@ public struct BaseballCard: ProtobufGeneratedMessage {
 
   }
 
-  public var playerName: String = ""
+  var playerName: String = ""
 
-  public var teams: [BaseballCard.Team] = []
+  var teams: [BaseballCard.Team] = []
 
-  public var positions: [BaseballCard.Position] = []
+  var positions: [BaseballCard.Position] = []
 
-  public var year: UInt32 = 0
+  var year: UInt32 = 0
 
-  ///   Card numbers may have letters.
-  public var cardNumber: String = ""
+  ///  Card numbers may have letters.
+  var cardNumber: String = ""
 
-  public var cardCompany: String = ""
+  var cardCompany: String = ""
 
-  public var fullImageURL: String = ""
+  var fullImageURL: String = ""
 
-  public var thumbnailImage: Data = Data()
+  var thumbnailImage: Data = Data()
 
-  public init() {}
+  init() {}
 
-  public init(playerName: String? = nil,
-    teams: [BaseballCard.Team] = [],
-    positions: [BaseballCard.Position] = [],
-    year: UInt32? = nil,
-    cardNumber: String? = nil,
-    cardCompany: String? = nil,
-    fullImageURL: String? = nil,
-    thumbnailImage: Data? = nil)
-  {
-    if let v = playerName {
-      self.playerName = v
-    }
-    if !teams.isEmpty {
-      self.teams = teams
-    }
-    if !positions.isEmpty {
-      self.positions = positions
-    }
-    if let v = year {
-      self.year = v
-    }
-    if let v = cardNumber {
-      self.cardNumber = v
-    }
-    if let v = cardCompany {
-      self.cardCompany = v
-    }
-    if let v = fullImageURL {
-      self.fullImageURL = v
-    }
-    if let v = thumbnailImage {
-      self.thumbnailImage = v
-    }
-  }
-
-  public mutating func _protoc_generated_decodeField(setter: inout ProtobufFieldDecoder, protoFieldNumber: Int) throws -> Bool {
-    let handled: Bool
+  public mutating func _protoc_generated_decodeField(setter: inout SwiftProtobuf.FieldDecoder, protoFieldNumber: Int) throws {
     switch protoFieldNumber {
-    case 1: handled = try setter.decodeSingularField(fieldType: ProtobufString.self, value: &playerName)
-    case 2: handled = try setter.decodePackedField(fieldType: BaseballCard.Team.self, value: &teams)
-    case 3: handled = try setter.decodePackedField(fieldType: BaseballCard.Position.self, value: &positions)
-    case 4: handled = try setter.decodeSingularField(fieldType: ProtobufUInt32.self, value: &year)
-    case 5: handled = try setter.decodeSingularField(fieldType: ProtobufString.self, value: &cardNumber)
-    case 6: handled = try setter.decodeSingularField(fieldType: ProtobufString.self, value: &cardCompany)
-    case 7: handled = try setter.decodeSingularField(fieldType: ProtobufString.self, value: &fullImageURL)
-    case 8: handled = try setter.decodeSingularField(fieldType: ProtobufBytes.self, value: &thumbnailImage)
-    default:
-      handled = false
+    case 1: try setter.decodeSingularField(fieldType: SwiftProtobuf.ProtobufString.self, value: &playerName)
+    case 2: try setter.decodePackedField(fieldType: BaseballCard.Team.self, value: &teams)
+    case 3: try setter.decodePackedField(fieldType: BaseballCard.Position.self, value: &positions)
+    case 4: try setter.decodeSingularField(fieldType: SwiftProtobuf.ProtobufUInt32.self, value: &year)
+    case 5: try setter.decodeSingularField(fieldType: SwiftProtobuf.ProtobufString.self, value: &cardNumber)
+    case 6: try setter.decodeSingularField(fieldType: SwiftProtobuf.ProtobufString.self, value: &cardCompany)
+    case 7: try setter.decodeSingularField(fieldType: SwiftProtobuf.ProtobufString.self, value: &fullImageURL)
+    case 8: try setter.decodeSingularField(fieldType: SwiftProtobuf.ProtobufBytes.self, value: &thumbnailImage)
+    default: break
     }
-    return handled
   }
 
-  public func _protoc_generated_traverse(visitor: inout ProtobufVisitor) throws {
+  public func _protoc_generated_traverse(visitor: inout SwiftProtobuf.Visitor) throws {
     if playerName != "" {
-      try visitor.visitSingularField(fieldType: ProtobufString.self, value: playerName, protoFieldNumber: 1, protoFieldName: "playerName", jsonFieldName: "playerName", swiftFieldName: "playerName")
+      try visitor.visitSingularField(fieldType: SwiftProtobuf.ProtobufString.self, value: playerName, protoFieldNumber: 1)
     }
     if !teams.isEmpty {
-      try visitor.visitPackedField(fieldType: BaseballCard.Team.self, value: teams, protoFieldNumber: 2, protoFieldName: "teams", jsonFieldName: "teams", swiftFieldName: "teams")
+      try visitor.visitPackedField(fieldType: BaseballCard.Team.self, value: teams, protoFieldNumber: 2)
     }
     if !positions.isEmpty {
-      try visitor.visitPackedField(fieldType: BaseballCard.Position.self, value: positions, protoFieldNumber: 3, protoFieldName: "positions", jsonFieldName: "positions", swiftFieldName: "positions")
+      try visitor.visitPackedField(fieldType: BaseballCard.Position.self, value: positions, protoFieldNumber: 3)
     }
     if year != 0 {
-      try visitor.visitSingularField(fieldType: ProtobufUInt32.self, value: year, protoFieldNumber: 4, protoFieldName: "year", jsonFieldName: "year", swiftFieldName: "year")
+      try visitor.visitSingularField(fieldType: SwiftProtobuf.ProtobufUInt32.self, value: year, protoFieldNumber: 4)
     }
     if cardNumber != "" {
-      try visitor.visitSingularField(fieldType: ProtobufString.self, value: cardNumber, protoFieldNumber: 5, protoFieldName: "cardNumber", jsonFieldName: "cardNumber", swiftFieldName: "cardNumber")
+      try visitor.visitSingularField(fieldType: SwiftProtobuf.ProtobufString.self, value: cardNumber, protoFieldNumber: 5)
     }
     if cardCompany != "" {
-      try visitor.visitSingularField(fieldType: ProtobufString.self, value: cardCompany, protoFieldNumber: 6, protoFieldName: "cardCompany", jsonFieldName: "cardCompany", swiftFieldName: "cardCompany")
+      try visitor.visitSingularField(fieldType: SwiftProtobuf.ProtobufString.self, value: cardCompany, protoFieldNumber: 6)
     }
     if fullImageURL != "" {
-      try visitor.visitSingularField(fieldType: ProtobufString.self, value: fullImageURL, protoFieldNumber: 7, protoFieldName: "fullImageURL", jsonFieldName: "fullImageURL", swiftFieldName: "fullImageURL")
+      try visitor.visitSingularField(fieldType: SwiftProtobuf.ProtobufString.self, value: fullImageURL, protoFieldNumber: 7)
     }
     if thumbnailImage != Data() {
-      try visitor.visitSingularField(fieldType: ProtobufBytes.self, value: thumbnailImage, protoFieldNumber: 8, protoFieldName: "thumbnailImage", jsonFieldName: "thumbnailImage", swiftFieldName: "thumbnailImage")
+      try visitor.visitSingularField(fieldType: SwiftProtobuf.ProtobufBytes.self, value: thumbnailImage, protoFieldNumber: 8)
     }
   }
 
@@ -586,41 +539,29 @@ public struct BaseballCard: ProtobufGeneratedMessage {
   }
 }
 
-public struct BaseballCards: ProtobufGeneratedMessage {
+struct BaseballCards: SwiftProtobuf.Message, SwiftProtobuf.Proto3Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf.ProtoNameProviding {
   public var swiftClassName: String {return "BaseballCards"}
   public var protoMessageName: String {return "BaseballCards"}
   public var protoPackageName: String {return ""}
-  public var jsonFieldNames: [String: Int] {return [
-    "all": 1,
-  ]}
-  public var protoFieldNames: [String: Int] {return [
-    "all": 1,
-  ]}
+  public static let _protobuf_fieldNames: FieldNameMap = [
+    1: .same(proto: "all", swift: "all"),
+  ]
 
-  public var all: [BaseballCard] = []
 
-  public init() {}
+  var all: [BaseballCard] = []
 
-  public init(all: [BaseballCard] = [])
-  {
-    if !all.isEmpty {
-      self.all = all
-    }
-  }
+  init() {}
 
-  public mutating func _protoc_generated_decodeField(setter: inout ProtobufFieldDecoder, protoFieldNumber: Int) throws -> Bool {
-    let handled: Bool
+  public mutating func _protoc_generated_decodeField(setter: inout SwiftProtobuf.FieldDecoder, protoFieldNumber: Int) throws {
     switch protoFieldNumber {
-    case 1: handled = try setter.decodeRepeatedMessageField(fieldType: BaseballCard.self, value: &all)
-    default:
-      handled = false
+    case 1: try setter.decodeRepeatedMessageField(fieldType: BaseballCard.self, value: &all)
+    default: break
     }
-    return handled
   }
 
-  public func _protoc_generated_traverse(visitor: inout ProtobufVisitor) throws {
+  public func _protoc_generated_traverse(visitor: inout SwiftProtobuf.Visitor) throws {
     if !all.isEmpty {
-      try visitor.visitRepeatedMessageField(value: all, protoFieldNumber: 1, protoFieldName: "all", jsonFieldName: "all", swiftFieldName: "all")
+      try visitor.visitRepeatedMessageField(value: all, protoFieldNumber: 1)
     }
   }
 
