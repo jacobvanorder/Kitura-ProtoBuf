@@ -95,32 +95,24 @@ class Service {
             request, response, next in
             defer { next() }
             
-            guard let contentType = request.headers["Content-Type"] else {
-                response.send(status: .badRequest).send("No Content-Type in headers.")
+            guard let body = request.body else {
+                response.send(status: .badRequest).send("No body in request.")
                 return
             }
             
             let card: BaseballCard
             
-            switch contentType {
-            case "application/octet-stream":
-                
-                var data = Data()
-                var length = try request.read(into: &data)
-                while length != 0 {
-                    length = try request.read(into: &data)
-                }
-                card = try BaseballCard.init(protobuf: data)
+            switch body {
+            case .raw(let data):
+                    card = try BaseballCard.init(protobuf: data)
                 break
-            case "application/json":
-                guard let body = request.body,
-                    case let .json(data) = body,
-                    let jsonString = data.rawString() else {
-                        response.status(.badRequest)
-                        return
+            case .json(let data):
+                guard let jsonString = data.rawString() else {
+                    response.status(.badRequest)
+                    return
                 }
                 card = try BaseballCard.init(json: jsonString)
-                break
+            break
             default:
                 response.status(.badRequest).send("Content-Type is incorrect.")
                 return
