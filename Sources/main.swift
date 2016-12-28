@@ -2,11 +2,16 @@ import Kitura
 import HeliumLogger
 import SwiftyJSON
 import Foundation
+import KituraSession
+
+import CredentialsFacebook
+import Credentials
 
 class Service {
     
     let router = Router()
     var allCards: [BaseballCard] = [BaseballCard]()
+    let credentials = Credentials()
     
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -19,6 +24,25 @@ class Service {
         HeliumLogger.use()
         
         router.all(middleware: BodyParser())
+        
+        // Facepage authentication
+        router.all(middleware: Session(secret: "WhoLetTheDogsOut"))
+        
+        let facepageCredentials = CredentialsFacebook(clientId: fbClientId,
+                                                      clientSecret: fbClientSecret,
+                                                      callbackUrl: "http://localhost:8090" + "/login/facepage/callback",
+                                                      options: [CredentialsFacebookOptions.scope: "email",
+                                                                CredentialsFacebookOptions.fields: "email,name"])
+        credentials.register(plugin: facepageCredentials)
+        credentials.options["failureRedirect"] = "/login/facepage"
+        
+        router.get("/login/facepage",
+                   handler: credentials.authenticate(credentialsType: facepageCredentials.name))
+        
+        router.get("/login/facepage/callback",
+                   handler: credentials.authenticate(credentialsType: facepageCredentials.name))
+        
+        // End Facepage
         
         router.get("/", handler: {
             request, response, next in
@@ -64,6 +88,7 @@ class Service {
             }
         })
         
+        router.get("/cards", middleware: credentials)
         router.get("/cards", handler: {
             request, response, next in
             
