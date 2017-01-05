@@ -31,8 +31,8 @@ class Service {
         let facepageCredentials = CredentialsFacebook(clientId: fbClientId,
                                                       clientSecret: fbClientSecret,
                                                       callbackUrl: "http://localhost:8090" + "/login/facepage/callback",
-                                                      options: [CredentialsFacebookOptions.scope: "email",
-                                                                CredentialsFacebookOptions.fields: "email,name"])
+                                                      options: [CredentialsFacebookOptions.scope: ["email"],
+                                                                CredentialsFacebookOptions.fields: ["email", "name"]])
         credentials.register(plugin: facepageCredentials)
         credentials.options["failureRedirect"] = "/login/facepage"
         
@@ -99,7 +99,8 @@ class Service {
                 return
             }
             
-            let cards = BaseballCards(all: self.allCards)
+            var cards = BaseballCards()
+            cards.all = self.allCards
             
             switch accept {
             case "application/json":
