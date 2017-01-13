@@ -196,7 +196,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_520"
+               BlueprintIdentifier = "OBJ_519"
                BuildableName = "KituraSession.framework"
                BlueprintName = "KituraSession"
                ReferencedContainer = "container:ProtoBuf.xcodeproj">
@@ -210,7 +210,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_552"
+               BlueprintIdentifier = "OBJ_551"
                BuildableName = "Credentials.framework"
                BlueprintName = "Credentials"
                ReferencedContainer = "container:ProtoBuf.xcodeproj">
@@ -224,9 +224,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_584"
-               BuildableName = "CredentialsFacebook.framework"
-               BlueprintName = "CredentialsFacebook"
+               BlueprintIdentifier = "OBJ_583"
+               BuildableName = "Kitura_CredentialsTwitter.framework"
+               BlueprintName = "Kitura-CredentialsTwitter"
                ReferencedContainer = "container:ProtoBuf.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -238,7 +238,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_616"
+               BlueprintIdentifier = "OBJ_615"
                BuildableName = "ProtoBuf"
                BlueprintName = "ProtoBuf"
                ReferencedContainer = "container:ProtoBuf.xcodeproj">
@@ -256,7 +256,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_655"
+               BlueprintIdentifier = "OBJ_654"
                BuildableName = "ProtoBufTests.xctest"
                BlueprintName = "ProtoBufTests"
                ReferencedContainer = "container:ProtoBuf.xcodeproj">

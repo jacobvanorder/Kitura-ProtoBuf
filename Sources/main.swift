@@ -4,7 +4,7 @@ import SwiftyJSON
 import Foundation
 import KituraSession
 
-import CredentialsFacebook
+import Kitura_CredentialsTwitter
 import Credentials
 
 class Service {
@@ -25,24 +25,19 @@ class Service {
         
         router.all(middleware: BodyParser())
         
-        // Facepage authentication
-        router.all(middleware: Session(secret: "WhoLetTheDogsOut"))
+        // Twitter authentication
+        router.all(middleware: Session(secret: "NowBatting"))
         
-        let facepageCredentials = CredentialsFacebook(clientId: fbClientId,
-                                                      clientSecret: fbClientSecret,
-                                                      callbackUrl: "http://localhost:8090" + "/login/facepage/callback",
-                                                      options: [CredentialsFacebookOptions.scope: ["email"],
-                                                                CredentialsFacebookOptions.fields: ["email", "name"]])
-        credentials.register(plugin: facepageCredentials)
-        credentials.options["failureRedirect"] = "/login/facepage"
+        let twitter = CredentialsTwitter(consumerKey: twitterConsumerKey,
+                                         consumerSecret: twitterConsumerSecret)
         
-        router.get("/login/facepage",
-                   handler: credentials.authenticate(credentialsType: facepageCredentials.name))
+        credentials.register(plugin: twitter)
+        credentials.options["failureRedirect"] = "/login/twitter"
+        router.get("/login/twitter",
+                   handler: credentials.authenticate(credentialsType: twitter.name))
         
-        router.get("/login/facepage/callback",
-                   handler: credentials.authenticate(credentialsType: facepageCredentials.name))
-        
-        // End Facepage
+        router.get("/login/twitter/callback",
+                   handler: credentials.authenticate(credentialsType: twitter.name))
         
         router.get("/", handler: {
             request, response, next in
@@ -130,7 +125,7 @@ class Service {
             
             switch body {
             case .raw(let data):
-                    card = try BaseballCard.init(protobuf: data)
+                card = try BaseballCard.init(protobuf: data)
                 break
             case .json(let data):
                 guard let jsonString = data.rawString() else {
@@ -138,7 +133,7 @@ class Service {
                     return
                 }
                 card = try BaseballCard.init(json: jsonString)
-            break
+                break
             default:
                 response.status(.badRequest).send("Content-Type is incorrect.")
                 return
