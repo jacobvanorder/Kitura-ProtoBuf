@@ -2,16 +2,11 @@ import Kitura
 import HeliumLogger
 import SwiftyJSON
 import Foundation
-import KituraSession
-
-import Kitura_CredentialsTwitter
-import Credentials
 
 class Service {
     
     let router = Router()
     var allCards: [BaseballCard] = [BaseballCard]()
-    let credentials = Credentials()
     
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -25,27 +20,13 @@ class Service {
         
         router.all(middleware: BodyParser())
         
-        // Twitter authentication
-        router.all(middleware: Session(secret: "NowBatting"))
-        
-        let twitter = CredentialsTwitter(consumerKey: twitterConsumerKey,
-                                         consumerSecret: twitterConsumerSecret)
-        
-        credentials.register(plugin: twitter)
-        credentials.options["failureRedirect"] = "/login/twitter"
-        router.get("/login/twitter",
-                   handler: credentials.authenticate(credentialsType: twitter.name))
-        
-        router.get("/login/twitter/callback",
-                   handler: credentials.authenticate(credentialsType: twitter.name))
-        
         router.get("/", handler: {
             request, response, next in
             response.send("It is: \(self.dateFormatter.string(from: Date()))")
             next()
         })
         
-        router.get("/json", handler: {
+        router.get("/json/", handler: {
             request, response, next in
             let dictionary = ["It is" : self.dateFormatter.string(from: Date())]
             let json = JSON(dictionary)
@@ -53,7 +34,7 @@ class Service {
             next()
         })
         
-        router.get("/card", handler: {
+        router.get("/card/", handler: {
             request, response, next in
             
             defer { next() }
@@ -83,8 +64,7 @@ class Service {
             }
         })
         
-        router.get("/cards", middleware: credentials)
-        router.get("/cards", handler: {
+        router.get("/cards/", handler: {
             request, response, next in
             
             defer { next() }
@@ -112,7 +92,7 @@ class Service {
             }
         })
         
-        router.post("/card", handler: {
+        router.post("/card/", handler: {
             request, response, next in
             defer { next() }
             

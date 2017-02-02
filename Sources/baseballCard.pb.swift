@@ -485,11 +485,11 @@ struct BaseballCard: SwiftProtobuf.Message, SwiftProtobuf.Proto3Message, SwiftPr
 
   init() {}
 
-  public mutating func _protoc_generated_decodeField(setter: inout SwiftProtobuf.FieldDecoder, protoFieldNumber: Int) throws {
+  public mutating func _protoc_generated_decodeField<T: SwiftProtobuf.FieldDecoder>(setter: inout T, protoFieldNumber: Int) throws {
     switch protoFieldNumber {
     case 1: try setter.decodeSingularField(fieldType: SwiftProtobuf.ProtobufString.self, value: &playerName)
-    case 2: try setter.decodePackedField(fieldType: BaseballCard.Team.self, value: &teams)
-    case 3: try setter.decodePackedField(fieldType: BaseballCard.Position.self, value: &positions)
+    case 2: try setter.decodeRepeatedField(fieldType: BaseballCard.Team.self, value: &teams)
+    case 3: try setter.decodeRepeatedField(fieldType: BaseballCard.Position.self, value: &positions)
     case 4: try setter.decodeSingularField(fieldType: SwiftProtobuf.ProtobufUInt32.self, value: &year)
     case 5: try setter.decodeSingularField(fieldType: SwiftProtobuf.ProtobufString.self, value: &cardNumber)
     case 6: try setter.decodeSingularField(fieldType: SwiftProtobuf.ProtobufString.self, value: &cardCompany)
@@ -499,30 +499,30 @@ struct BaseballCard: SwiftProtobuf.Message, SwiftProtobuf.Proto3Message, SwiftPr
     }
   }
 
-  public func _protoc_generated_traverse(visitor: inout SwiftProtobuf.Visitor) throws {
+  public func _protoc_generated_traverse(visitor: SwiftProtobuf.Visitor) throws {
     if playerName != "" {
-      try visitor.visitSingularField(fieldType: SwiftProtobuf.ProtobufString.self, value: playerName, protoFieldNumber: 1)
+      try visitor.visitSingularField(fieldType: SwiftProtobuf.ProtobufString.self, value: playerName, fieldNumber: 1)
     }
     if !teams.isEmpty {
-      try visitor.visitPackedField(fieldType: BaseballCard.Team.self, value: teams, protoFieldNumber: 2)
+      try visitor.visitPackedField(fieldType: BaseballCard.Team.self, value: teams, fieldNumber: 2)
     }
     if !positions.isEmpty {
-      try visitor.visitPackedField(fieldType: BaseballCard.Position.self, value: positions, protoFieldNumber: 3)
+      try visitor.visitPackedField(fieldType: BaseballCard.Position.self, value: positions, fieldNumber: 3)
     }
     if year != 0 {
-      try visitor.visitSingularField(fieldType: SwiftProtobuf.ProtobufUInt32.self, value: year, protoFieldNumber: 4)
+      try visitor.visitSingularField(fieldType: SwiftProtobuf.ProtobufUInt32.self, value: year, fieldNumber: 4)
     }
     if cardNumber != "" {
-      try visitor.visitSingularField(fieldType: SwiftProtobuf.ProtobufString.self, value: cardNumber, protoFieldNumber: 5)
+      try visitor.visitSingularField(fieldType: SwiftProtobuf.ProtobufString.self, value: cardNumber, fieldNumber: 5)
     }
     if cardCompany != "" {
-      try visitor.visitSingularField(fieldType: SwiftProtobuf.ProtobufString.self, value: cardCompany, protoFieldNumber: 6)
+      try visitor.visitSingularField(fieldType: SwiftProtobuf.ProtobufString.self, value: cardCompany, fieldNumber: 6)
     }
     if fullImageURL != "" {
-      try visitor.visitSingularField(fieldType: SwiftProtobuf.ProtobufString.self, value: fullImageURL, protoFieldNumber: 7)
+      try visitor.visitSingularField(fieldType: SwiftProtobuf.ProtobufString.self, value: fullImageURL, fieldNumber: 7)
     }
     if thumbnailImage != Data() {
-      try visitor.visitSingularField(fieldType: SwiftProtobuf.ProtobufBytes.self, value: thumbnailImage, protoFieldNumber: 8)
+      try visitor.visitSingularField(fieldType: SwiftProtobuf.ProtobufBytes.self, value: thumbnailImage, fieldNumber: 8)
     }
   }
 
@@ -552,16 +552,16 @@ struct BaseballCards: SwiftProtobuf.Message, SwiftProtobuf.Proto3Message, SwiftP
 
   init() {}
 
-  public mutating func _protoc_generated_decodeField(setter: inout SwiftProtobuf.FieldDecoder, protoFieldNumber: Int) throws {
+  public mutating func _protoc_generated_decodeField<T: SwiftProtobuf.FieldDecoder>(setter: inout T, protoFieldNumber: Int) throws {
     switch protoFieldNumber {
     case 1: try setter.decodeRepeatedMessageField(fieldType: BaseballCard.self, value: &all)
     default: break
     }
   }
 
-  public func _protoc_generated_traverse(visitor: inout SwiftProtobuf.Visitor) throws {
+  public func _protoc_generated_traverse(visitor: SwiftProtobuf.Visitor) throws {
     if !all.isEmpty {
-      try visitor.visitRepeatedMessageField(value: all, protoFieldNumber: 1)
+      try visitor.visitRepeatedMessageField(value: all, fieldNumber: 1)
     }
   }
 
